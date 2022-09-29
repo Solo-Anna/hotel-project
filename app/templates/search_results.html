@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="country_offers">
+        <div>
+            <h1 id="offers_headline">{{country.countryName}}</h1>
+        </div>
+        <div class="country_grid">
+            {% for hotel in results %}
+            <div class="offer2">
+                <a href="{% url 'hotel' hotel.hotelId %}">  
+                <div id="photo_offer">
+                    <img class = "image" src="{{ hotel.image }}" width="100%" alt="Ooops, not loaded"/>
+                </div>
+                <div class="offer_descr">
+                    <div class='hotel_name'> {{hotel.hotelName}} {{hotel.stars}}*</div>
+                    <div id="offer_descr2"> {{hotel.hotelLocation.locationName}}, {{hotel.hotelCountry.countryName}}</div>
+                    <div id="offer_descr2"> Цена в сутки: {{hotel.hotel_price_average}}</div>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

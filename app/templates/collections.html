@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="our_offers">
+    <div>
+        <h1 id="offers_headline">Коллекции отелей</h1>
+        </div>
+
+    <div class="collections_grid">
+        {% for collection in collections %}
+        <div class="offer2">
+            <a href="{% url 'hotels_by_collection' collection.collectionId %}">
+            <div id="photo_collection">
+                {% if collection.collectionPhoto %}
+                    <img class = "image_collection" src="{{ collection.collectionPhoto.url }}" width="100%" alt="Ooops, not loaded">
+                {% else %}
+                    <p>no image was uploaded</p>
+                {% endif %}
+            </div>
+            <div class="offer_descr">
+                <div class='hotel_name'> {{collection.collectionName}}</div>
+            </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+from django.core.management.base import BaseCommand
+from app.models import Hotel, Location, Collection
+import requests
+
+class Command(BaseCommand):
+    help = 'Добавить отели'
+
+    def add_arguments(self, parser):
+        parser.add_argument('locationId', type=str, help=u'Id Локации')
+
+    def handle(self, *args, **kwargs):
+        locationId = kwargs['locationId']
+        new_Location = Location.objects.get(locationId = locationId)
+        response = requests.get(f'http://engine.hotellook.com/api/v2/static/hotels.json?locationId={locationId}&limit=50&token=a6f47b425e569b83ee00e30758b1a29f')
+        hotels = response.json()
+        for i in hotels['hotels']:
+            if i['stars']==4:
+                Hotel.objects.create(hotelName = i['name']['en'], hotelId = i['id'], image = i['photos'][0]['url'], stars = 4, hotelLocation = new_Location, hotelCountry=new_Location.country)
+

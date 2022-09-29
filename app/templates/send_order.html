@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class = order>
+  <div id = headline_block_order> 
+    <div>{{this_hotel.hotelName}} {{this_hotel.stars}}*  </div>
+    <div> {{this_hotel.hotelLocation.locationName}}, {{this_hotel.hotelCountry.countryName}} </div>  
+  </div>
+  <div>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class = order>
+        <div class = dates>   
+          <div class="fieldWrapper">
+            {{ form.checkIn.errors }}
+            <label for="{{ form.checkIn.id_for_label }}">Дата заезда:</label>
+            {{ form.checkIn }} 
+          </div>
+          <div class="fieldWrapper">
+            {{ form.checkOut.errors }}
+            <label for="{{ form.checkIn.id_for_label }}">Дата выезда:</label>
+            {{ form.checkOut }} 
+          </div>
+        </div>
+        <div class = dates>   
+          <div class="fieldWrapper">
+            {{ form.adults.errors }}
+            <label for="{{ form.adults.id_for_label }}">Взрослых:</label>
+            {{ form.adults }} 
+          </div>
+          <div class="fieldWrapper">
+            {{ form.children.errors }}
+            <label for="{{ form.checkIn.id_for_label }}">Детей:</label>
+            {{ form.children}} 
+          </div>  
+        </div>
+        <div class = dates>   
+          <div class=fieldWrapper>
+            {{ form.name.errors }}
+            <label for="{{ form.name.id_for_label }}">Ваше имя:</label>
+            {{ form.name }} 
+          </div>
+          <div class=fieldWrapper>
+            {{ form.phone_number.errors }}
+            <label for="{{ form.phone_number.id_for_label }}">Номер для связи:</label>
+            {{ form.phone_number }} 
+          </div>  
+        </div>
+        <button class = button type="submit">Заказать</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

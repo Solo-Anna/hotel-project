@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class ="form_group">
+        <form class = "form_title" action="{% url 'search_results'%}" method="GET">
+            <div class = form_part> <h1 class="form_title">Выберите направление:</h1> </div>
+            <div class = form_part>{{ form.query }} </div>
+            <div class = form_part>
+                <button class = form_button type="submit">Показать</button></div>
+        </form>
+    </div>
+    <div class="our_offers">
+        <div>
+            <h1 id="offers_headline">Коллекции отелей</h1>
+            </div>
+    
+        <div class="collections_grid">
+            {% for collection in collections %}
+            <div class="offer2">
+                <a href="{% url 'hotels_by_collection' collection.collectionId %}">
+                <div id="photo_collection">
+                    {% if collection.collectionPhoto %}
+                        <img class = "image_collection" src="{{ collection.collectionPhoto.url }}" width="100%" alt="Ooops, not loaded">
+                    {% else %}
+                        <p>no image was uploaded</p>
+                    {% endif %}
+                </div>
+                <div id="collection_name"> {{collection.collectionName}}</div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="our_offers">
+        <div>
+            <h1 id="offers_headline">Наши рекомендации</h1>
+            </div>
+        <div class="offers_grid">
+            {% for hotel in hotels %}
+            <div class="offer2">
+                <a href="{% url 'hotel' hotel.hotelId %}">                 
+                <div id="photo_offer">
+                    <img class = "image" src="{{ hotel.image }}" width="100%" alt="Ooops, not loaded">
+                </div>
+                <div class="offer_descr">
+                    <div class='hotel_name'> {{hotel.hotelName}} {{hotel.stars}}*</div>
+                    <div id="offer_descr2"> {{hotel.hotelLocation.locationName}}, {{hotel.hotelLocation.country}}</div>
+                </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
